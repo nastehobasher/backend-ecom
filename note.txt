@@ -1,0 +1,28 @@
+// app.post('/api/user/register', async (req, res) => {
+//     const myemail = req.body.email;
+//     const findUser = await User.findOne({ email: myemail });
+//     if (!findUser) {
+//         console.log("creating user");
+//         //create a user
+//         const newUser = await User.create(req.body);
+//         res.json(newUser);
+//     } else {
+//         console.log(" user exist", findUser);
+//         res.json({
+//             msg: "User Already Exists",
+//             success: false,
+//         });
+//     }
+// });
+
+
+
+
+points 
+1. encrypted password
+
+
+
+// const getallProducts = await Product.find(queryObj);
+JWT_SECRET = mysecret
+MP = gnwzuzvwsrjgixop
