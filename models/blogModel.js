@@ -29,13 +29,13 @@ var blogSchema = new mongoose.Schema({
     likes: [
         {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "User,"
+            ref: "User",
         },
     ],
     dislikes: [
         {
             type: mongoose.Schema.Types.ObjectId,
-            ref: "User,"
+            ref: "User",
         },
     ],
     image: {

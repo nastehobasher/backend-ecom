@@ -6,6 +6,10 @@ const PORT = process.env.PORT || 4000;
 const authRouter = require("./routes/authRoutes");
 const productRouter = require("./routes/productRoute");
 const blogRouter = require("./routes/blogRoutes");
+const categoryRouter = require("./routes/prodcategoryRoutes");
+const blogCatRouter = require("./routes/blogCatRoutes");
+const brandRouter = require("./routes/brandRoutes");
+
 const bodyParser = require('body-parser');
 const { notFound, errorHandler } = require('./middlewares/errorHandler');
 const cookieParser = require('cookie-parser');
@@ -20,14 +24,17 @@ app.use(cookieParser());
 app.use('/api/user', authRouter);
 app.use('/api/product', productRouter);
 app.use('/api/blog', blogRouter);
+app.use('/api/category', categoryRouter);
+app.use('/api/blogcat', blogCatRouter);
+app.use('/api/brand', brandRouter);
 
 app.use(notFound)
 app.use(errorHandler);
 
 
-app.use('/', (req, res) => {
-    res.send("hello world hhhhhh");
-});
+// app.use('/', (req, res) => {
+//     res.send("hello world hhhhhh");
+// });
 
 app.listen(PORT, () => {
     console.log(`listening to port ${PORT}`);
