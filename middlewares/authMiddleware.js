@@ -30,6 +30,7 @@ const isAdmin = asyncHandler(async (req, res, next) => {
     if (AdminUser.role !== "admin") {
         throw new Error("You are not an admin");
     } else {
+        console.log("@isAdmin... Yes Ok to go!");
         next();
     }
 });
