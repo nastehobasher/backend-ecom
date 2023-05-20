@@ -194,4 +194,25 @@ const rating = asyncHandler(async (req, res) => {
     }
 });
 
-module.exports = { createProduct, getaPoduct, getAllProduct, updateProduct, deleteProduct, AddToWishlist, rating };
+const uploadImage = asyncHandler(async (req, res) => {
+    console.log("***** req: ", req.files);
+    try {
+        const uploader = (path) => cloudinaryUploadImg(path, "images");
+        const urls = [];
+        const files = req.files;
+        // console.log("~~~> FIles: ", files);
+        for (const file of files) {
+            const { path } = file;
+            const newpath = await uploader(path);
+            urls.push(newpath);
+        }
+        const images = urls.map((file) => {
+            return file;
+        });
+        res.json(images);
+    } catch (error) {
+        throw new Error(error);
+    }
+});
+
+module.exports = { createProduct, getaPoduct, getAllProduct, updateProduct, deleteProduct, AddToWishlist, rating, uploadImage };
