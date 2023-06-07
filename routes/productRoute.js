@@ -1,22 +1,11 @@
 const express = require('express');
-const { createProduct, getaPoduct, getAllProduct, updateProduct, deleteProduct, AddToWishlist, rating, uploadImage } = require("../controller/productCtrl");
+const { createProduct, getaPoduct, getAllProduct, updateProduct, deleteProduct, AddToWishlist, rating } = require("../controller/productCtrl");
 
 const { isAdmin, authMiddleware } = require("../middlewares/authMiddleware");
-const { uploadPhoto, productImgResize } = require('../middlewares/uploadImages');
 
 const router = express.Router();
 
 router.post("/", authMiddleware, isAdmin, createProduct);
-
-// router.put(
-//     "/upload/",
-//     authMiddleware,
-//     isAdmin,
-//     uploadPhoto.array("images", 10),
-//     uploadPhoto,
-//     productImgResize,
-//     uploadImage
-// );
 
 router.get("/:id", getaPoduct);
 router.put("/wishlist", authMiddleware, AddToWishlist);

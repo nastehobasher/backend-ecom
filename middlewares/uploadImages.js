@@ -24,7 +24,7 @@ const multerFilter = (req, file, cb) => {
 const uploadPhoto = multer({
     storage: storage,
     fileFilter: multerFilter,
-    limits: { fileSize: 1000000 },
+    limits: { fileSize: 3000000 },
 });
 
 const productImgResize = async (req, res, next) => {
@@ -35,12 +35,14 @@ const productImgResize = async (req, res, next) => {
                 .resize(300, 300)
                 .toFormat("jpeg")
                 .jpeg({ quality: 90 })
-                .toFile(`public/images/products/${file.filename}`);
-            fs.unlinkSync(`public/images/products/${file.filename}`);
+                .toFile(`public/images/product${file.filename}`);
+            fs.unlinkSync(`public/images/product${file.filename}`);
         })
     );
     next();
 };
+
+
 
 const blogImgResize = async (req, res, next) => {
     if (!req.files) return next();
@@ -50,8 +52,8 @@ const blogImgResize = async (req, res, next) => {
                 .resize(300, 300)
                 .toFormat("jpeg")
                 .jpeg({ quality: 90 })
-                .toFile(`public/images/blogs/${file.filename}`);
-            fs.unlinkSync(`public/images/blogs/${file.filename}`);
+                .toFile(`public/images/${file.filename}`);
+            fs.unlinkSync(`public/images/${file.filename}`);
         })
     );
     next();

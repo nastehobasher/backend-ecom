@@ -3,12 +3,12 @@ const asyncHandler = require("express-async-handler");
 const slugify = require("slugify");
 const User = require("../models/userModel");
 const validateMongodbId = require('../utils/validateMongodbid');
-const cloudinaryUploadImg = require('../utils/cloudinary');
 
 
 
 
 const createProduct = asyncHandler(async (req, res) => {
+    console.log("•••••> body? ", req.body);
     try {
         if (req.body.title) {
             req.body.slug = slugify(req.body.title);
@@ -54,7 +54,7 @@ const getaPoduct = asyncHandler(async (req, res) => {
     const { id } = req.params;
     validateMongodbId(id);
     try {
-        const findProduct = await Product.findById(id);
+        const findProduct = await Product.findById(id).populate("color");
         res.json(findProduct);
     } catch (error) {
         throw new Error(error);
@@ -139,7 +139,7 @@ const AddToWishlist = asyncHandler(async (req, res) => {
     } catch (error) {
         throw new Error(error);
     }
-})
+});
 
 
 const rating = asyncHandler(async (req, res) => {
@@ -194,25 +194,25 @@ const rating = asyncHandler(async (req, res) => {
     }
 });
 
-const uploadImage = asyncHandler(async (req, res) => {
-    console.log("***** req: ", req.files);
-    try {
-        const uploader = (path) => cloudinaryUploadImg(path, "images");
-        const urls = [];
-        const files = req.files;
-        // console.log("~~~> FIles: ", files);
-        for (const file of files) {
-            const { path } = file;
-            const newpath = await uploader(path);
-            urls.push(newpath);
-        }
-        const images = urls.map((file) => {
-            return file;
-        });
-        res.json(images);
-    } catch (error) {
-        throw new Error(error);
-    }
-});
+// const uploadImage = asyncHandler(async (req, res) => {
+//     console.log("***** req: ", req.files);
+//     try {
+//         const uploader = (path) => cloudinaryUploadImg(path, "images");
+//         const urls = [];
+//         const files = req.files;
+//         // console.log("~~~> FIles: ", files);
+//         for (const file of files) {
+//             const { path } = file;
+//             const newpath = await uploader(path);
+//             urls.push(newpath);
+//         }
+//         const images = urls.map((file) => {
+//             return file;
+//         });
+//         res.json(images);
+//     } catch (error) {
+//         throw new Error(error);
+//     }
+// });
 
-module.exports = { createProduct, getaPoduct, getAllProduct, updateProduct, deleteProduct, AddToWishlist, rating, uploadImage };
+module.exports = { createProduct, getaPoduct, getAllProduct, updateProduct, deleteProduct, AddToWishlist, rating };

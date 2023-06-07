@@ -1,4 +1,5 @@
 const cloudinary = require("cloudinary");
+
 cloudinary.config({
     cloud_name: process.env.CLOUD_NAME,
     api_key: process.env.API_KEY,
@@ -6,10 +7,11 @@ cloudinary.config({
 });
 
 const cloudinaryUploadImg = async (fileToUploads) => {
-    console.log("....... @cloudinaryUploadImg: ", fileToUploads);
-    console.log("....... @cloudinaryUploadImg: CONFIG: ", JSON.stringify(cloudinary.config));
+    // console.log("....... @cloudinaryUploadImg: ", fileToUploads);
+    // console.log("....... @cloudinaryUploadImg: CONFIG: ", typeof cloudinary.config);
     return new Promise((resolve) => {
         cloudinary.uploader.upload(fileToUploads, (result) => {
+            // console.log("∞∞∞∞∞ ", result);
             resolve(
                 {
                     url: result.secure_url,
@@ -24,21 +26,21 @@ const cloudinaryUploadImg = async (fileToUploads) => {
     });
 };
 
-// const cloudinaryDeleteImg = async (fileToDelete) => {
-//     return new Promise((resolve) => {
-//       cloudinary.uploader.destroy(fileToDelete, (result) => {
-//         resolve(
-//           {
-//             url: result.secure_url,
-//             asset_id: result.asset_id,
-//             public_id: result.public_id,
-//           },
-//           {
-//             resource_type: "auto",
-//           }
-//         );
-//       });
-//     });
-// };
+const cloudinaryDeleteImg = async (fileToDelete) => {
+    return new Promise((resolve) => {
+        cloudinary.uploader.destroy(fileToDelete, (result) => {
+            resolve(
+                {
+                    url: result.secure_url,
+                    asset_id: result.asset_id,
+                    public_id: result.public_id,
+                },
+                {
+                    resource_type: "auto",
+                }
+            );
+        });
+    });
+};
 
-module.exports = { cloudinaryUploadImg };
+module.exports = { cloudinaryUploadImg, cloudinaryDeleteImg };

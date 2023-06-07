@@ -1,0 +1,11 @@
+// router.get("/get-orders", authMiddleware, getOrders);
+// router.get("/getallorders", authMiddleware, isAdmin, getAllOrders);
+// router.post("/getorderbyuser/:id", authMiddleware, isAdmin, getOrderByUserId);
+// router.put("/order/update-order/:id", authMiddleware, isAdmin, updateOrderStatus);
+
+// router.post("/cart/applycoupon", authMiddleware, applyCoupon);
+
+    // getOrders, updateOrderStatus, getOrderByUserId, getAllOrders, 
+applyCoupon
+
+router.delete("/empty-cart", authMiddleware, emptyCart);
